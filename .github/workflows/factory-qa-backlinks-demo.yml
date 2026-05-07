@@ -1,0 +1,15 @@
+# factory-automation: e4f24dc9-d810-4999-97b0-2a2af0451398
+name: QA Backlinks Demo
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  droid-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Droid Review
+        uses: Factory-AI/droid-action@v1
+        with:
+          prompt: "Run Droid to review every PR for bugs and security issues."
