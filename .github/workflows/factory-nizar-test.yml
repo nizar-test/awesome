@@ -1,0 +1,31 @@
+# factory-automation: d42bb3b3-2906-4623-aa48-0c079e02a7e4
+name: nizar-test
+"on":
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run Factory droid-action
+        uses: Factory-AI/droid-action@main
+        with:
+          org_id: ${{ secrets.FACTORY_ORG_ID }}
+          api_key: ${{ secrets.FACTORY_API_KEY }}
+          prompt: |-
+            Create a GitHub Actions CI automation for this repository that runs Droid on every pull request.
+
+            The workflow should:
+            - Create `.github/workflows/droid-review.yml`
+            - Run on `pull_request` events: opened, synchronize, reopened
+            - Use `Factory-AI/droid-action`
+            - Review the PR for bugs, security issues, and correctness problems
+            - Post findings back to the PR
+            - Include a `# factory-automation:` marker in the workflow file
+            - Open a pull request with the workflow change
+            - Include `Factory session: <current Factory session URL>` in the pull request body
