@@ -1,0 +1,20 @@
+# factory-automation: bd630a1d-7500-4b49-9be9-98ce324cc051
+name: deeplink-test
+"on":
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run Factory droid-action
+        uses: Factory-AI/droid-action@main
+        with:
+          org_id: ${{ secrets.FACTORY_ORG_ID }}
+          api_key: ${{ secrets.FACTORY_API_KEY }}
+          prompt: test deeplink
